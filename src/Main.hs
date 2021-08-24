@@ -17,21 +17,18 @@ import           Control.Monad.IO.Class         ( liftIO )
 import           Database.Persist
 import           Database.Persist.Sqlite
 import           Database.Persist.TH
+import           Person
 
 share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persistLowerCase|
-Person
-   name String
-   age Int Maybe
-   deriving Show
 BlogPost
    title String
    authorId PersonId
    deriving Show
-
 |]
 
 main :: IO ()
 main = runSqlite ":memory:" $ do
+  runMigration personMigrateAll
   runMigration migrateAll
 
   johnId <- insert $ Person "John Doe" $ Just 35
