@@ -19,4 +19,4 @@ import           Database.Persist.Sqlite
 import           Database.Persist.TH
 import           Database.Persist.Quasi
 
-share [mkPersistWith sqlSettings $(discoverEntities), mkMigrate "personMigrateAll"] $(persistFileWith lowerCaseSettings "person.persistentmodel")
+share [mkPersistWith sqlSettings $(discoverEntities)] $(persistFileWith lowerCaseSettings "config/models/person.persistentmodel")
