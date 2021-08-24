@@ -1,5 +1,16 @@
 # persistent-modular-foreign-key-bug
 
+## Doing migrations for multiple external files correctly
+
+https://www.parsonsmatt.org/2019/12/06/splitting_persistent_models.html#migrations
+
+Still has the same error with no such table person:
+
+```
+~/org-roam/daily/data/63/787637-e72b-426f-888d-72b3280d33e9/persistent-modular-foreign-key-bug $ stack run
+persistent-modular-foreign-key-bug: SQLite3 returned ErrorError while attempting to perform prepare "INSERT INTO \"person\"(\"name\",\"age\") VALUES(?,?)": no such table: person
+```
+
 ## External persistentmodel file, using $(discoverEntities)
 
 ```
