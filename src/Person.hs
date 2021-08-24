@@ -17,11 +17,6 @@ import           Control.Monad.IO.Class         ( liftIO )
 import           Database.Persist
 import           Database.Persist.Sqlite
 import           Database.Persist.TH
+import           Database.Persist.Quasi
 
-
-share [mkPersist sqlSettings, mkMigrate "personMigrateAll"] [persistLowerCase|
-Person
-   name String
-   age Int Maybe
-   deriving Show
-|]
+share [mkPersistWith sqlSettings $(discoverEntities), mkMigrate "personMigrateAll"] $(persistFileWith lowerCaseSettings "person.persistentmodel")

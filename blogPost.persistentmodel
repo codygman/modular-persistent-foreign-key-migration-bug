@@ -1,0 +1,4 @@
+BlogPost
+   title String
+   authorId PersonId
+   deriving Show

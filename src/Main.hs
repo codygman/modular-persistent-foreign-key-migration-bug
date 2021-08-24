@@ -16,15 +16,11 @@ module Main where
 import           Control.Monad.IO.Class         ( liftIO )
 import           Database.Persist
 import           Database.Persist.Sqlite
+import           Database.Persist.Quasi
 import           Database.Persist.TH
 import           Person
 
-share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persistLowerCase|
-BlogPost
-   title String
-   authorId PersonId
-   deriving Show
-|]
+share [mkPersistWith sqlSettings $(discoverEntities), mkMigrate "migrateAll"] $(persistFileWith lowerCaseSettings "blogPost.persistentmodel")
 
 main :: IO ()
 main = runSqlite ":memory:" $ do
