@@ -22,14 +22,14 @@ import           Person
 import           System.Directory
 import           Data.List                      ( isSuffixOf )
 
+share [mkPersistWith sqlSettings $(discoverEntities)] $(persistFileWith lowerCaseSettings "config/models/blogPost.persistentmodels")
+
 mkMigrate "migrateAll" $(do
     files <- liftIO $ do
         dirContents <- getDirectoryContents "config/models/"
         pure $ map ("config/models/" <>) $ filter (".persistentmodels" `isSuffixOf`) dirContents
     persistManyFileWith lowerCaseSettings files
     )
-
-share [mkPersistWith sqlSettings $(discoverEntities)] $(persistFileWith lowerCaseSettings "config/models/blogPost.persistentmodel")
 
 main :: IO ()
 main = runSqlite ":memory:" $ do
